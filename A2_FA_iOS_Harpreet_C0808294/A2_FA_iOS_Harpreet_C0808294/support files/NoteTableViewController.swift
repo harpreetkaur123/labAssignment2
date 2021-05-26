@@ -14,8 +14,8 @@ class NoteTableViewController: UITableViewController {
     @IBOutlet weak var trashBtn: UIBarButtonItem!
     @IBOutlet weak var moveToBtn: UIBarButtonItem!
     
-    var products = [ProductItems]()
-    var selectedFolder: ProductFolder? {
+    var products = [ProductDetail]()
+    var selectedFolder: Product? {
         didSet {
             loadNotes()
         }
@@ -141,7 +141,7 @@ class NoteTableViewController: UITableViewController {
     
     //MARK: - data manipulation core data
     
-    func loadNotes(with request: NSFetchRequest<ProductItems> = ProductItems.fetchRequest(), predicate: NSPredicate? = nil) {
+    func loadNotes(with request: NSFetchRequest<ProductDetail> = ProductDetail.fetchRequest(), predicate: NSPredicate? = nil) {
 //        let request: NSFetchRequest<Note> = Note.fetchRequest()
         let folderPredicate = NSPredicate(format: "parentFolder.name=%@", selectedFolder!.name!)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
@@ -161,7 +161,7 @@ class NoteTableViewController: UITableViewController {
     }
     
     
-    func deleteNote(note: ProductItems) {
+    func deleteNote(note: ProductDetail) {
         context.delete(note)
     }
     
@@ -176,7 +176,7 @@ class NoteTableViewController: UITableViewController {
     //MARK: - update note
     func updateNote(with description: String , with ID: String, with name: String, with price: String, with provider: String) {
         products = []
-        let newNote = ProductItems(context: context)
+        let newNote = ProductDetail(context: context)
         newNote.productDescription = description
         newNote.productID = ID
         newNote.productName = name

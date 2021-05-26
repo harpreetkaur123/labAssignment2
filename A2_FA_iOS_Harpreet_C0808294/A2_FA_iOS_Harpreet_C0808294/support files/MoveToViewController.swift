@@ -11,8 +11,8 @@ import CoreData
 
 class MoveToViewController: UIViewController {
     
-    var folders = [ProductFolder]()
-    var selectedNotes: [ProductItems]? {
+    var folders = [Product]()
+    var selectedNotes: [ProductDetail]? {
         didSet {
             loadFolders()
         }
@@ -29,7 +29,7 @@ class MoveToViewController: UIViewController {
     //MARK: - data manipulation core data
     
     func loadFolders() {
-        let request: NSFetchRequest<ProductFolder> = ProductFolder.fetchRequest()
+        let request: NSFetchRequest<Product> = Product.fetchRequest()
         
         // predicate if you want
         let folderPredicate = NSPredicate(format: "NOT name MATCHES %@", selectedNotes?[0].parentFolder?.name ?? "")

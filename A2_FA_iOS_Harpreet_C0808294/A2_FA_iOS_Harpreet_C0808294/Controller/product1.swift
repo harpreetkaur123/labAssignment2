@@ -1,4 +1,4 @@
-
+// Harpreet kaur
 
 import UIKit
 import CoreData
@@ -10,21 +10,13 @@ class product1: UITableViewController {
    
     // create a context to work with core data
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-       
     //MARK: - view lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         let newProduct = ProductFolder(context: self.context)
-       
         newProduct.name = "productItems"
-       
         loadProducts()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
   
     override func viewWillAppear(_ animated: Bool) {
@@ -32,29 +24,23 @@ class product1: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return products.count
+        return 1
     }
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "product1", for: indexPath)
-        
         cell.textLabel?.text = products[indexPath.row].name
         cell.textLabel?.textColor = .red
         cell.detailTextLabel?.textColor = .blue
-        cell.detailTextLabel?.text = " "
-       // cell.detailTextLabel?.text = "\(products[indexPath.row].products?.count ?? 0)"
+       // cell.detailTextLabel?.text = " "
         cell.imageView?.image = UIImage(systemName: "Product")
         cell.backgroundColor = .white
         cell.selectionStyle = .none
-        
         return cell
     }
     
@@ -77,11 +63,9 @@ class product1: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-    
-    //MARK: - IB Action methods
-    
-    /// add folder button pressed
-    /// - Parameter sender: bar button
+   //MARK: - IB Action methods
+   /// add folder button pressed
+   /// - Parameter sender: bar button
     @IBAction func addFolderBtnPressed(_ sender: UIBarButtonItem) {
         
         var textField = UITextField()
@@ -107,8 +91,6 @@ class product1: UITableViewController {
         
         present(alert, animated: true, completion: nil)
     }
-    
-    
     /// show alert when the name of the folder is taken
     func showAlert() {
         let alert = UIAlertController(title: "Name Already Taken", message: "Please choose another name", preferredStyle: .alert)
@@ -116,9 +98,7 @@ class product1: UITableViewController {
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
-    
     //MARK: - core data interaction methods
-    
     /// load folder from core data
     func loadProducts() {
         let request: NSFetchRequest<ProductFolder> = ProductFolder.fetchRequest()
@@ -130,7 +110,6 @@ class product1: UITableViewController {
         }
         tableView.reloadData()
     }
-    
     /// save products into core data
     func saveProducts() {
         do {
@@ -151,11 +130,11 @@ class product1: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        let destination = segue.destination as! product2
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destination.chosenProductFolder = products[indexPath.row]
-        }
+       let destination = segue.destination as! product2
+       if let indexPath = tableView.indexPathForSelectedRow {
+           destination.chosenProductFolder = products[indexPath.row]
+     //   }
+  //  }
+       }
     }
-    
-
 }

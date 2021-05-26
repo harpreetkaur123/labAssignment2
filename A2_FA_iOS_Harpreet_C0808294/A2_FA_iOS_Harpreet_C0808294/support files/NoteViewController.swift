@@ -11,7 +11,7 @@ import UIKit
 class NoteViewController: UIViewController {
     
     @IBOutlet weak var noteTextView: UITextView!
-    var selectedNote: ProductItems? {
+    var selectedNote: ProductDetail? {
         didSet {
             editMode = true
         }

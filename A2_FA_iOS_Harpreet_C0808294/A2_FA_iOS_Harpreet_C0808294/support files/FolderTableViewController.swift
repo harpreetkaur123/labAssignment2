@@ -12,7 +12,7 @@ import CoreData
 class FolderTableViewController: UITableViewController {
     
     // create a folder array to populate the table
-    var folders = [ProductFolder]()
+    var folders = [Product]()
     
     // create a context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -32,7 +32,7 @@ class FolderTableViewController: UITableViewController {
     //MARK: - Data manipulation methods
     
     func loadFolder() {
-        let request: NSFetchRequest<ProductFolder> = ProductFolder.fetchRequest()
+        let request: NSFetchRequest<Product> = Product.fetchRequest()
         
         do {
             folders = try context.fetch(request)
@@ -84,7 +84,7 @@ class FolderTableViewController: UITableViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
             let folderNames = self.folders.map {$0.name}
             guard !folderNames.contains(textField.text) else {self.showAlert(); return}
-            let newFolder = ProductFolder(context: self.context)
+            let newFolder = Product(context: self.context)
             newFolder.name = textField.text!
             self.folders.append(newFolder)
             self.saveFolders()

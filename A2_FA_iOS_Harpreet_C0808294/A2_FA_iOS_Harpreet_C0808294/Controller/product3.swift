@@ -1,17 +1,15 @@
-//
-//
-
+//Harpreet kaur
 import UIKit
 
 class product3: UIViewController {
 
-    @IBOutlet weak var pID: UITextView!
+    @IBOutlet weak var ID: UITextView!
     
-    @IBOutlet weak var pProvider: UITextView!
-    @IBOutlet weak var pPrice: UITextView!
-    @IBOutlet weak var pDescription: UITextView!
-    @IBOutlet weak var pName: UITextView!
-    var selectedNote: ProductItems? {
+    @IBOutlet weak var Provider: UITextView!
+    @IBOutlet weak var Price: UITextView!
+    @IBOutlet weak var Description: UITextView!
+    @IBOutlet weak var Name: UITextView!
+    var selectedProduct: ProductItems? {
         didSet {
             editMode = true
         }
@@ -25,25 +23,25 @@ class product3: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pID.backgroundColor = .systemFill
-        pName.backgroundColor = .systemFill
-        pDescription.backgroundColor = .systemFill
-        pPrice.backgroundColor = .systemFill
-        pProvider.backgroundColor = .systemFill
-        pID.text = selectedNote?.productID
-        pName.text = selectedNote?.productName
-        pDescription.text = selectedNote?.productDescription
-        pPrice.text = selectedNote?.productPrice
-        pProvider.text = selectedNote?.productProvider
+        ID.backgroundColor = .systemFill
+        Name.backgroundColor = .systemFill
+        Description.backgroundColor = .systemFill
+        Price.backgroundColor = .systemFill
+        Provider.backgroundColor = .systemFill
+        ID.text = selectedProduct?.productID
+        Name.text = selectedProduct?.productName
+        Description.text = selectedProduct?.productDescription
+        Price.text = selectedProduct?.productPrice
+        Provider.text = selectedProduct?.productProvider
         view.backgroundColor = .white
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         if editMode {
-            delegate!.deleteProduct(note: selectedNote!)
+            delegate!.delete(note: selectedProduct!)
         }
-        guard pID.text != "" else {return}
-        delegate!.updateProduct(with: pID.text , with: pName.text , with: pDescription.text , with: pPrice.text, with: pProvider.text )
+        guard ID.text != "" else {return}
+        delegate!.updateProduct(with: ID.text , with: Name.text , with: Description.text , with: Price.text, with: Provider.text )
     }
 
 }

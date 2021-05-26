@@ -1,8 +1,4 @@
-//
-//  productFiles.swift
-//  Note Demo Template
-//
-//
+//Harpreet kaur
 
 import UIKit
 import CoreData
@@ -11,9 +7,9 @@ class product2: UITableViewController {
 
     @IBOutlet weak var trashBtn: UIBarButtonItem!
  
-    
+    var flag = true
     var deletingMovingOption: Bool = false
-   
+    
     // create notes
     var products = [ProductItems]()
     
@@ -26,9 +22,7 @@ class product2: UITableViewController {
     // create the context
     
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-   
-   
-    // define a search controller
+   // define a search controller
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -36,15 +30,8 @@ class product2: UITableViewController {
         view.backgroundColor = .white
         navigationItem.title = chosenProductFolder?.name
         showSearchBar()
-        defaultData()
-  
-    }
-
-    
-
-    
-
-
+         defaultData()
+   }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,15 +43,12 @@ class product2: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return products.count
     }
-
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "product2", for: indexPath)
         let p = products[indexPath.row]
-        let p1 = "Product name is "+p.productName!
+        let p1 = "Product =  " + p.productName!
         cell.textLabel?.text = p1
-        cell.textLabel?.textColor = .red
-    
+        cell.textLabel?.textColor = .black
         cell.backgroundColor = .white
         return cell
     }
@@ -78,7 +62,7 @@ class product2: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            deleteProduct(note: products[indexPath.row])
+            delete(note: products[indexPath.row])
             save()
             products.remove(at: indexPath.row)
             // Delete the row from the data source
@@ -89,8 +73,7 @@ class product2: UITableViewController {
     }
     
     //MARK: - Core data interaction functions
-    
-    /// load notes deom core data
+    /// load products core data
     /// - Parameter predicate: parameter comming from search bar - by default is nil
     func load(predicate: NSPredicate? = nil) {
         let request: NSFetchRequest<ProductItems> = ProductItems.fetchRequest()
@@ -111,13 +94,13 @@ class product2: UITableViewController {
         tableView.reloadData()
     }
     
-    /// delete notes from context
+    /// delete product  from context
     /// - Parameter note: note defined in Core Data
-    func deleteProduct(note: ProductItems) {
+    func delete(note: ProductItems) {
         context.delete(note)
     }
     
-    /// update note in core data
+    /// update product in core data
     /// - Parameter title: note's title
     func updateProduct(with ID: String , with name : String , with description : String , with price : String , with provider : String ) {
         products = []
@@ -125,11 +108,11 @@ class product2: UITableViewController {
         newNote.productID = ID
         newNote.productName = name
         newNote.productDescription = description
-        
         newNote.productPrice = price
         newNote.productProvider = provider
         newNote.parentFolder = chosenProductFolder
         save()
+        
         load()
     }
     
@@ -150,7 +133,7 @@ class product2: UITableViewController {
         if let indexPaths = tableView.indexPathsForSelectedRows {
             let rows = (indexPaths.map {$0.row}).sorted(by: >)
             
-            let _ = rows.map {deleteProduct(note: products[$0])}
+            let _ = rows.map {delete(note: products[$0])}
             let _ = rows.map {products.remove(at: $0)}
             
             tableView.reloadData()
@@ -177,16 +160,13 @@ class product2: UITableViewController {
         definesPresentationContext = true
         searchController.searchBar.searchTextField.textColor = .lightGray
     }
-
     // MARK: - Navigation
-
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         guard identifier != "moveNotesSegue" else {
             return true
         }
         return deletingMovingOption ? false : true
     }
-    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -197,16 +177,14 @@ class product2: UITableViewController {
             
             if let cell = sender as? UITableViewCell {
                 if let index = tableView.indexPath(for: cell)?.row {
-                    destination.selectedNote = products[index]
+                    destination.selectedProduct = products[index]
                 }
             }
         }
-        
-       
-    }
+     }
     
     @IBAction func unwindToNoteTVC(_ unwindSegue: UIStoryboardSegue) {
-//        let sourceViewController = unwindSegue.source
+        //let sourceViewController = unwindSegue.source
         // Use data from the view controller which initiated the unwind segue
         save()
         load()
@@ -216,18 +194,13 @@ class product2: UITableViewController {
 
 //MARK: - search bar delegate methods
 extension product2: UISearchBarDelegate {
-    
-    
     /// search button on keypad functionality
     /// - Parameter searchBar: search bar is passed to this function
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // add predicate
         let predicate = NSPredicate(format: "productName  CONTAINS[cd] %@", searchBar.text! )
-       
         load(predicate: predicate )
     }
-    
-    
     /// when the text in text bar is changed
     /// - Parameters:
     ///   - searchBar: search bar is passed to this function
@@ -242,8 +215,8 @@ extension product2: UISearchBarDelegate {
         }
     }
     
+    
     func save(productId: String,productName: String,productDescription: String,productPrice: String,productProvider: String) {
-        print("run")
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -254,80 +227,70 @@ extension product2: UISearchBarDelegate {
         let entity =
             NSEntityDescription.entity(forEntityName: "ProductItems",
                                        in: managedContext)!
-        let company = NSManagedObject(entity: entity,
+      let company = NSManagedObject(entity: entity,
                                      insertInto: managedContext)
-        
-        // 1
-       
-        // 3
-       company.setValue(productId, forKeyPath: "productID")
-
-     company.setValue(productName, forKeyPath: "productName")
-        company.setValue(productDescription, forKeyPath: "productDescription")
+      company.setValue(productId, forKeyPath: "productID")
+      company.setValue(productName, forKeyPath: "productName")
+      company.setValue(productDescription, forKeyPath: "productDescription")
       company.setValue(productPrice, forKeyPath: "productPrice")
       company.setValue(productProvider, forKeyPath: "productProvider")
-///
         do {
             products = try context.fetch(request)
             try managedContext.save()
         } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+           // print("Could not save. \(error), \(error.userInfo)")
             //print("Error loading products \(error.localizedDescription)")
         }
         tableView.reloadData()
     }
     
-    //view will appear func
-        func defaultData() {
-       // flag = false
-       // deleteNote(note: ProductDetail)
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
-        }
-        
-       let managedContext =
-            appDelegate.persistentContainer.viewContext
-        let entity =
-                NSEntityDescription.entity(forEntityName: "ProductItems",
-                                           in: managedContext)!
-            
-            let detail = NSManagedObject(entity: entity,
-                                          insertInto: managedContext)
-            
-      detail.setValue("1",forKeyPath: "productID")
-        detail.setValue("Apple", forKeyPath: "productName")
-      detail.setValue("MacOs", forKeyPath: "productDescription")
-        detail.setValue("$89000", forKeyPath: "productPrice")
-        detail.setValue("joy", forKeyPath: "productProvider")
-        
-            let details = NSManagedObject(entity: entity,
-                                          insertInto: managedContext)
-            
-      details.setValue("2",forKeyPath: "productID")
-        details.setValue("Amazon", forKeyPath: "productName")
-      details.setValue("clothes", forKeyPath: "productDescription")
-        details.setValue("$900", forKeyPath: "productPrice")
-        details.setValue("Tommy", forKeyPath: "productProvider")
-            let details1 = NSManagedObject(entity: entity,
-                                          insertInto: managedContext)
-            details1.setValue("3",forKeyPath: "productID")
-              details1.setValue("Acraft", forKeyPath: "productName")
-            details1.setValue("clothes", forKeyPath: "productDescription")
-              details1.setValue("$98", forKeyPath: "productPrice")
-              details1.setValue("TommyHilfigher", forKeyPath: "productProvider")
-              
-
-            self.save(productId: "9",productName: "strawberry",productDescription: "Good to eat",productPrice: "$5.5",productProvider: "Hedgerow")
-            self.save(productId: "4",productName: "strawberry",productDescription: "Good to eat",productPrice: "$5.5",productProvider: "Hedgerow")
-            self.save(productId: "5",productName: "strawberry",productDescription: "Good to eat",productPrice: "$5.5",productProvider: "Hedgerow")
-            self.save(productId: "6",productName: "strawberry",productDescription: "Good to eat",productPrice: "$5.5",productProvider: "Hedgerow")
-            self.save(productId: "7",productName: "strawberry",productDescription: "Good to eat",productPrice: "$5.5",productProvider: "Hedgerow")
-            self.save(productId: "8",productName: "strawberry",productDescription: "Good to eat",productPrice: "$5.5",productProvider: "Hedgerow")
-            
-           
-            
+// saving static data into core data
+    func defaultData() {
+   // flag = false
+   // deleteNote(note: ProductDetail)
+    guard let appDelegate =
+        UIApplication.shared.delegate as? AppDelegate else {
+            return
     }
+    
+    let managedContext =
+        appDelegate.persistentContainer.viewContext
+    let entity =
+            NSEntityDescription.entity(forEntityName: "ProductItems",
+                                       in: managedContext)!
+    let detail = NSManagedObject(entity: entity,
+                                      insertInto: managedContext)
+        
+    detail.setValue("1",forKeyPath: "productID")
+    detail.setValue("Apple", forKeyPath: "productName")
+    detail.setValue("MacOs", forKeyPath: "productDescription")
+    detail.setValue("$89000", forKeyPath: "productPrice")
+    detail.setValue("joy", forKeyPath: "productProvider")
+    let details = NSManagedObject(entity: entity,
+                                      insertInto: managedContext)
+    details.setValue("2",forKeyPath: "productID")
+    details.setValue("Amazon", forKeyPath: "productName")
+    details.setValue("clothes", forKeyPath: "productDescription")
+    details.setValue("$900", forKeyPath: "productPrice")
+    details.setValue("Tommy", forKeyPath: "productProvider")
+    let details1 = NSManagedObject(entity: entity,
+                                      insertInto: managedContext)
+    details1.setValue("3",forKeyPath: "productID")
+    details1.setValue("Acraft", forKeyPath: "productName")
+    details1.setValue("clothes", forKeyPath: "productDescription")
+    details1.setValue("$98", forKeyPath: "productPrice")
+    details1.setValue("TommyHilfigher", forKeyPath: "productProvider")
+                      
 
+        self.save(productId: "9",productName: "strawberry",productDescription: "Good to eat",productPrice: "$5.5",productProvider: "Hedgerow")
+        self.save(productId: "4",productName: "refrigerator",productDescription: "keeps items cool",productPrice: "$500",productProvider: "steels")
+        self.save(productId: "5",productName: "vaseline",productDescription: "Smooth skin",productPrice: "$30",productProvider: "Albert")
+        self.save(productId: "6",productName: "nivea",productDescription: "anticeptic cream",productPrice: "$6",productProvider: "Maple")
+        self.save(productId: "7",productName: "cold drink",productDescription: "keeps mind fresh",productPrice: "$8",productProvider: "Jimmy")
+        self.save(productId: "8",productName: "bread",productDescription: "healthy food",productPrice: "$3",productProvider: "Levis")
+        
+       
+        
 }
 
+}
