@@ -10,7 +10,7 @@ class providerTVC: UITableViewController {
     
     // create a  products of array  to populate the table
     var products = [ProductItems]()
-   
+    var deletingMovingOption: Bool = false
     // create a context to work with core data
     @IBOutlet var trashBtn: UIBarButtonItem!
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -19,7 +19,7 @@ class providerTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //print("harpreet")
-      defaultData()
+     // defaultData()
         
         load()
        //  self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -43,7 +43,9 @@ class providerTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "provider1", for: indexPath)
-        cell.textLabel?.text = products[indexPath.row].productProvider
+        let p = products[indexPath.row]
+        let p1 = p.productName! + ":" + p.productProvider!
+        cell.textLabel?.text = p1
        // cell.textLabel?.text =  "harpreet"
         cell.textLabel?.textColor = .black
         cell.detailTextLabel?.textColor = .black
@@ -71,6 +73,9 @@ class providerTVC: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
    }
+    func delete(note: ProductItems) {
+        context.delete(note)
+    }
     // Save products into core data
     func save() {
         do {
@@ -105,70 +110,13 @@ class providerTVC: UITableViewController {
     if let indexPaths = tableView.indexPathsForSelectedRows {
                 let rows = (indexPaths.map {$0.row}).sorted(by: >)
                 
-              //  let _ = rows.map {deleteProduct(note: products[$0])}
+              let _ = rows.map {delete(note: products[$0])}
                 let _ = rows.map {products.remove(at: $0)}
-              ///  deleteProducts(folder: Product)
                 tableView.reloadData()
                 save()
         }
       }
     
-    func save(productProvider: String) {
-        print("run")
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
-        }
-        let request: NSFetchRequest<ProductItems> = ProductItems.fetchRequest()
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        let entity =
-            NSEntityDescription.entity(forEntityName: "ProductItems",
-                                       in: managedContext)!
-        let company = NSManagedObject(entity: entity,
-                                     insertInto: managedContext)
-        
-       
-      company.setValue(productProvider, forKeyPath: "productProvider")
-
-        do {
-            products = try context.fetch(request)
-            try managedContext.save()
-        } catch let error as NSError {
-           // print("Could not save. \(error), \(error.userInfo)")
-            //print("Error loading products \(error.localizedDescription)")
-        }
-        tableView.reloadData()
-    }
     
-// saving static data into core data
-    func defaultData() {
-    guard let appDelegate =
-        UIApplication.shared.delegate as? AppDelegate else {
-            return
-   }
-    let managedContext =
-        appDelegate.persistentContainer.viewContext
-    let entity =
-            NSEntityDescription.entity(forEntityName: "ProductItems",
-                                       in: managedContext)!
-    let detail = NSManagedObject(entity: entity,
-                                      insertInto: managedContext)
-    detail.setValue("joy", forKeyPath: "productProvider")
-    let details = NSManagedObject(entity: entity,
-                                      insertInto: managedContext)
-    details.setValue("Tommy", forKeyPath: "productProvider")
-    let details1 = NSManagedObject(entity: entity,
-                                      insertInto: managedContext)
-    details1.setValue("TommyHilfigher", forKeyPath: "productProvider")
-          
-
-        self.save(productProvider: "Hedgerow")
-        self.save(productProvider: "steels")
-        self.save(productProvider: "Albert")
-        self.save(productProvider: "Maple")
-        self.save(productProvider: "Jimmy")
-        self.save(productProvider: "Levis")
-      }
     }
 

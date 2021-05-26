@@ -68,7 +68,7 @@
         <!--Providers -->
         <scene sceneID="mHX-rx-Tgp">
             <objects>
-                <tableViewController id="tK7-wg-zUS" userLabel="Providers " customClass="providerTVC" customModule="A2_FA_iOS_Harpreet_c0808294" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tK7-wg-zUS" userLabel="Providers " customClass="providerTVC" customModule="A2_FA_iOS_Harpreet_C0808294" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hpG-fy-DgO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,7 +110,7 @@
         <!--PRODUCT-->
         <scene sceneID="wvQ-XN-9qG">
             <objects>
-                <tableViewController id="rOG-z7-303" customClass="product1" customModule="A2_FA_iOS_Harpreet_c0808294" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="rOG-z7-303" customClass="product1" customModule="A2_FA_iOS_Harpreet_C0808294" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="n7t-hD-nO0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -183,7 +183,7 @@
         <!--PRODUCT ITEM-->
         <scene sceneID="EyD-1p-HmY">
             <objects>
-                <tableViewController id="JEN-XW-A8w" userLabel="PRODUCT ITEM" customClass="product2" customModule="A2_FA_iOS_Harpreet_c0808294" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="JEN-XW-A8w" userLabel="PRODUCT ITEM" customClass="product2" customModule="A2_FA_iOS_Harpreet_C0808294" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wu1-Te-V2p">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,6 +220,20 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="r7f-0M-kFJ"/>
+                        <barButtonItem enabled="NO" id="Q4V-XG-9Am" userLabel="show Provider">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="trashBtnPressed:" destination="JEN-XW-A8w" id="zdx-rN-QTf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Cob-Ps-pAA"/>
+                        <barButtonItem title="show Provider" style="plain" id="gNx-KU-0sH">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="tK7-wg-zUS" kind="show" id="3zT-If-gfz"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="hEe-fW-nMe"/>
                         <barButtonItem title="Item" image="rectangle.and.pencil.and.ellipsis.rtl" catalog="system" style="done" id="RjI-ym-Aa0">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -248,7 +262,7 @@
         <!--Product3-->
         <scene sceneID="Gxs-8r-DUg">
             <objects>
-                <viewController id="Mp0-Of-fEQ" customClass="product3" customModule="A2_FA_iOS_Harpreet_c0808294" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Mp0-Of-fEQ" customClass="product3" customModule="A2_FA_iOS_Harpreet_C0808294" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PeE-Oe-l6G">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -411,6 +425,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="FlG-Jz-P8T"/>
+        <segue reference="3zT-If-gfz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemBlueColor"/>
     <resources>

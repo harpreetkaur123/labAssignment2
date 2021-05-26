@@ -16,6 +16,7 @@
 		1CA19AFE25C4C22E0077E382 /* product3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA19AFA25C4C22E0077E382 /* product3.swift */; };
 		1CA19AFF25C4C22E0077E382 /* product1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA19AFB25C4C22E0077E382 /* product1.swift */; };
 		1CA19B0025C4C22E0077E382 /* product2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA19AFC25C4C22E0077E382 /* product2.swift */; };
+		EB2521DA265EBCA3007D7C7F /* providerTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2521D9265EBCA3007D7C7F /* providerTV.swift */; };
 		EB4CA883265D8D7200EB6631 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4CA882265D8D7200EB6631 /* ViewController.swift */; };
 		EB4CA885265DACD500EB6631 /* providerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4CA884265DACD500EB6631 /* providerTVC.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		1CA19AFA25C4C22E0077E382 /* product3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = product3.swift; sourceTree = "<group>"; };
 		1CA19AFB25C4C22E0077E382 /* product1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = product1.swift; sourceTree = "<group>"; };
 		1CA19AFC25C4C22E0077E382 /* product2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = product2.swift; sourceTree = "<group>"; };
+		EB2521D9265EBCA3007D7C7F /* providerTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = providerTV.swift; sourceTree = "<group>"; };
 		EB4CA882265D8D7200EB6631 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EB4CA884265DACD500EB6631 /* providerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = providerTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 				1CA19AFC25C4C22E0077E382 /* product2.swift */,
 				EB4CA882265D8D7200EB6631 /* ViewController.swift */,
 				EB4CA884265DACD500EB6631 /* providerTVC.swift */,
+				EB2521D9265EBCA3007D7C7F /* providerTV.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CA19B0025C4C22E0077E382 /* product2.swift in Sources */,
+				EB2521DA265EBCA3007D7C7F /* providerTV.swift in Sources */,
 				1C6680BE249ECA2D0042EBC2 /* Folder.xcdatamodeld in Sources */,
 				1CA19AFF25C4C22E0077E382 /* product1.swift in Sources */,
 				EB4CA883265D8D7200EB6631 /* ViewController.swift in Sources */,
